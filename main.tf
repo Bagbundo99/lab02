@@ -143,7 +143,9 @@ resource "aws_network_interface" "private_ip" {
     instance = aws_instance.firewall.id
     device_index = 1
     }
-
+  depends_on = [ 
+    aws_instance.firewall
+   ]
   private_ips = ["192.168.6.11"]
   source_dest_check = false
   security_groups = [aws_security_group.pf_sg_w.id]
