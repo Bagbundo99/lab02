@@ -105,6 +105,19 @@ resource "aws_vpc_security_group_ingress_rule" "outside" {
   ip_protocol = "all"
   cidr_ipv4 = "192.168.6.0/26"
 }
+resource "aws_vpc_security_group_egress_rule" "rdp" {
+  from_port = 3389
+  to_port = 3389
+  security_group_id = aws_security_group.pf_sg_w.id
+  ip_protocol = "tcp"
+  cidr_ipv4 = "192.168.6.10/32"
+}
+
+resource "aws_vpc_security_group_egress_rule" "rdpnat" {
+  security_group_id = aws_security_group.pf_sg.id
+  ip_protocol = "all"
+  cidr_ipv4 = "0.0.0.0/0"
+}
 
 resource "aws_vpc_security_group_ingress_rule" "comming" {
   security_group_id = aws_security_group.pf_sg.id
